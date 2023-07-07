@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "94348245097",
+    "project_id": "can-akademi-aaabd",
+    "storage_bucket": "can-akademi-aaabd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94348245097:android:ecbb2f1c958abd89f30af8",
+        "android_client_info": {
+          "package_name": "com.example.can_akademi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94348245097-csu1ipjjmmk8op6aj2ltruk17vf9ln35.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdUd4jSatZBzJkSmSRXo-c6bWwy1mOMCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94348245097-csu1ipjjmmk8op6aj2ltruk17vf9ln35.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
