@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:can_mobil/models/bottom_navbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,25 +7,24 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'pdf_view_page.dart';
 
-class Syllabus extends StatefulWidget {
-  const Syllabus({Key? key}) : super(key: key);
+class WeeklyProgram extends StatefulWidget {
+  const WeeklyProgram({Key? key}) : super(key: key);
 
   @override
-  State<Syllabus> createState() => _SyllabusState();
+  State<WeeklyProgram> createState() => _WeeklyProgramState();
 }
 
-class _SyllabusState extends State<Syllabus> {
+class _WeeklyProgramState extends State<WeeklyProgram> {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> pdfData = [];
 
   Future<String?> uploadPdf(String fileName, File file) async {
-    final reference =
-        FirebaseStorage.instance.ref().child("programs/$fileName");
+    final reference = FirebaseStorage.instance.ref().child("weekly/$fileName");
     final uploadTask = reference.putFile(file);
     await uploadTask.whenComplete(() {});
     final downloadLink = await reference.getDownloadURL();
 
-    await _firebaseFirestore.collection('programs').add({
+    await _firebaseFirestore.collection('weekly').add({
       "name": fileName,
       "url": downloadLink,
       "uploadDate": DateTime.now(),
@@ -53,7 +51,7 @@ class _SyllabusState extends State<Syllabus> {
   }
 
   void getAllPdf() async {
-    final results = await _firebaseFirestore.collection('programs').get();
+    final results = await _firebaseFirestore.collection('weekly').get();
 
     pdfData = results.docs.map((e) {
       Map<String, dynamic> data = e.data();
@@ -78,12 +76,11 @@ class _SyllabusState extends State<Syllabus> {
         elevation: 0,
         backgroundColor: const Color(0xFFFFA000),
         flexibleSpace: Container(decoration: const BoxDecoration()),
-        title: const Text('Ders Programı'),
+        title: const Text('Haftalık Birebir ve Ders Programı'),
         centerTitle: true,
       ),
-      bottomNavigationBar: BottomNavbar(currentPageIndex: 2),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(

@@ -14,13 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    
       debugShowCheckedModeBanner: false,
       title: 'Can Mobil',
       theme: ThemeData(
         primaryColor: const Color(0xFFFFA000),
         primarySwatch: Colors.orange,
-        progressIndicatorTheme: const ProgressIndicatorThemeData(color: Colors.white),
+        progressIndicatorTheme:
+            const ProgressIndicatorThemeData(color: Colors.white),
       ),
       home: Builder(
         builder: (context) {
@@ -30,4 +30,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -72,65 +72,94 @@ class _ExamResultsState extends State<ExamResults> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFFA000),
       bottomNavigationBar: BottomNavbar(
         currentPageIndex: 1,
       ),
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: const Color(0xFFFFA000),
-        flexibleSpace: Container(decoration: const BoxDecoration()),
+//        flexibleSpace: Container(decoration: const BoxDecoration()),
         title: const Text('Haftanın Sınav Sonuçları'),
         centerTitle: false,
       ),
-      body: GridView.builder(
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemCount: pdfData.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      PdfViewerScreen(pdfUrl: pdfData[index]['url']),
-                ));
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.picture_as_pdf,
-                      color: Colors.red,
-                      size: 50,
-                    ),
-                    Text(
-                      pdfData[index]['name'],
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        'Yüklenme tarihi: ${DateFormat('dd.mm.yyyy').format(pdfData[index]['uploadDate'])}',
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.black),
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
+        child: GridView.builder(
+          gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemCount: pdfData.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        PdfViewerScreen(pdfUrl: pdfData[index]['url']),
+                  ));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color(0xF3EEEEEE),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 4),
+                      const Icon(
+                        Icons.picture_as_pdf,
+                        color: Colors.red,
+                        size: 50,
                       ),
-                    ),
-                  ],
+                      Text(
+                        pdfData[index]['name']
+                            .split('.')
+                            .first, // Remove the file extension
+                        style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w400),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color:  const Color(0xFFFFA000),
+                        ),
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 16),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 8,),
+                                const Text(
+                                  'Yüklenme tarihi ',
+                                  style:
+                                      TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
+                                ),
+                                Text(DateFormat('dd.mm.yyyy').format(pdfData[index]['uploadDate'])),
+                                const SizedBox(height: 8,),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: pickFile,
-        child: const Icon(Icons.upload_file),
-      ),
+
     );
   }
 }

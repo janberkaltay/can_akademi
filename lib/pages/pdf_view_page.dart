@@ -26,25 +26,18 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffbff00),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: const Color(0xFFFFA000),
         flexibleSpace: Container(
             decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.orangeAccent, Colors.orangeAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
         )),
-        title: const Text('Deneme'),
+        title: const Text('PDF GÖRÜNTÜLEME EKRANI'),
       ),
       body: document != null
           ? Container(
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.orangeAccent, Colors.orangeAccent],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
+                color: Color(0xFFFFA000),
               ),
               child: PDFViewer(
                 document: document!,

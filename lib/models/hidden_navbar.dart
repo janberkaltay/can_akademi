@@ -1,4 +1,6 @@
-import 'package:can_mobil/pages/home_page.dart';
+import 'package:can_mobil/pages/about_page.dart';
+import 'package:can_mobil/pages/syllabus.dart';
+import 'package:can_mobil/pages/teacher_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,7 +16,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xFFFFA000),
+      backgroundColor: const Color(0xFFFFAA00),
       child: Column(
         children: [
           Container(
@@ -30,7 +32,7 @@ class _NavBarState extends State<NavBar> {
               children: [
                 CircleAvatar(
                   radius: 32,
-                  backgroundColor: Color(0xFFFFA000),
+                  backgroundColor: Color(0xFFFFAA00),
                   backgroundImage: AssetImage('assets/Can logo.png'),
                 ),
                 Padding(
@@ -47,13 +49,30 @@ class _NavBarState extends State<NavBar> {
             child: ListView(
               children: [
                 ListTile(
-                  title: const Text('Eğitim Kadrosu',
+                  title: const Text('Dönemlik Ders Programı',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      MaterialPageRoute(builder: (context) => const Syllabus()),
+                    );
+                  },
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 24,
+                    color: Colors.black,
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Can Kadromuz',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TeacherPage()),
                     );
                   },
                   trailing: const Icon(
@@ -71,7 +90,13 @@ class _NavBarState extends State<NavBar> {
                     size: 24,
                     color: Colors.black,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AboutPage()),
+                    );
+                  },
                 ),
                 ListTile(
                   title: const Text('Konum',
@@ -82,11 +107,9 @@ class _NavBarState extends State<NavBar> {
                     size: 24,
                     color: Colors.black,
                   ),
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
+                  onTap: () async {
+                    const locationUrl = 'https://goo.gl/maps/EajH596Mvu1EZTmz7';
+                    await launch(locationUrl);
                   },
                 ),
                 Row(
@@ -107,7 +130,7 @@ class _NavBarState extends State<NavBar> {
                         'İletişim',
                         style: TextStyle(
                             fontSize: 18,
-                            color: Color(0xFFFFA000),
+                            color: Color(0xFFFFAA00),
                             fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -137,7 +160,7 @@ class _NavBarState extends State<NavBar> {
                       icon: const Icon(
                         FontAwesomeIcons.whatsapp,
                         color: Colors.green,
-                        size: 36,
+                        size: 40,
                       ),
                     ),
                     IconButton(
@@ -149,7 +172,7 @@ class _NavBarState extends State<NavBar> {
                       icon: const Icon(
                         FontAwesomeIcons.facebook,
                         color: Colors.blueAccent,
-                        size: 36,
+                        size: 40,
                       ),
                     ),
                   ],

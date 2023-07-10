@@ -1,6 +1,7 @@
 import 'package:can_mobil/pages/exam_results.dart';
 import 'package:can_mobil/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavbar extends StatefulWidget {
   final int currentPageIndex;
