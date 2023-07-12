@@ -1,4 +1,3 @@
-import 'package:can_mobil/models/teachers_evaluation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -23,7 +22,7 @@ class _TeacherPageState extends State<TeacherPage> {
         backgroundColor: const Color(0xFFFFAA00),
         title: const Text(
           'CAN KADROMUZ',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
         ),
         centerTitle: true,
         elevation: 0,
@@ -77,32 +76,60 @@ class TeacherCard extends StatelessWidget {
     required this.teacherTitle,
     required this.teacherBio,
   });
-
+/* margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20), )*/
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      color: const Color(0xF3EEEEEE),
-      child: Padding(
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Column(
+              children: [
+                Container(
+                  height: 100,
+                  color: Colors.white,
+                  child: const CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Color(0xFFFFAA00),
+                    backgroundImage: AssetImage('assets/Can logo.png'),
+                  ),
+                ),
+                Text(teacherName),
+              ],
+            ),
+            content: SingleChildScrollView(child: Text(teacherBio!)),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Kapat'),
+              ),
+            ],
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xF3EEEEEE),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(
-              width: 8,
-            ),
             Container(
-              padding: const EdgeInsets.only(bottom: 8, top: 8),
+              padding: const EdgeInsets.only(bottom: 10, top: 10),
               height: 80,
               child: const CircleAvatar(
-                radius: 28,
+                radius: 32,
                 backgroundColor: Color(0xFFFFAA00),
                 backgroundImage: AssetImage('assets/Can logo.png'),
               ),
             ),
+            const SizedBox(width: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -118,53 +145,15 @@ class TeacherCard extends StatelessWidget {
                       color: Color(0x5C2F2F2F),
                       fontWeight: FontWeight.w600),
                 ),
+                const Text(
+                  'Özgeçmişi görmek için tıklayın',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFFFFAA00),
+                  ),
+                )
               ],
             ),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: Column(
-                      children: [
-                        Container(
-                          height: 100,
-                          color: Colors.white,
-                          child: const CircleAvatar(
-                            radius: 50,
-                            backgroundColor: Color(0xFFFFAA00),
-                            backgroundImage: AssetImage('assets/Can logo.png'),
-                          ),
-                        ),
-                        Text(teacherName),
-                      ],
-                    ),
-                    content: Text(teacherBio!),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Kapat'),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: Container(
-                height: 30,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFAA00),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Özgeçmiş',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
           ],
         ),
       ),

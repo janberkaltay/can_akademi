@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class EvaluationScreen extends StatelessWidget {
+  const EvaluationScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     double fontSize = MediaQuery.of(context).textScaleFactor * 12;
@@ -31,102 +33,115 @@ class EvaluationScreen extends StatelessWidget {
             DateTime dateTime = timestamp.toDate();
             String formattedDate = DateFormat('dd.MM.yyyy').format(dateTime);
 
-            return Card(
-              margin: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              color: const Color(0xF3EEEEEE),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 8, top: 8),
-                        height: 80,
-                        child: const CircleAvatar(
-                          radius: 28,
-                          backgroundColor: Color(0xFFFFAA00),
-                          backgroundImage: AssetImage('assets/Can logo.png'),
+            return GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Column(
+                      children: [
+                        Container(
+                          height: 100,
+                          color: Colors.white,
+                          child: const CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Color(0xFFFFAA00),
+                            backgroundImage: AssetImage('assets/Can logo.png'),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            name,
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            title,
-                            style: TextStyle(
-                                fontSize: fontSize,
-                                color: const Color(0x5C2F2F2F),
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            formattedDate,
-                            style: TextStyle(
-                                fontSize: fontSize,
-                                color: const Color(0x5C2F2F2F),
-                                fontWeight: FontWeight.w600),
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: Column(
-                                      children: [
-                                        Container(
-                                          height: 100,
-                                          color: Colors.white,
-                                          child: const CircleAvatar(
-                                            radius: 50,
-                                            backgroundColor: Color(0xFFFFAA00),
-                                            backgroundImage: AssetImage(
-                                                'assets/Can logo.png'),
-                                          ),
-                                        ),
-                                        Text(name),
-                                        Text(
-                                          '$formattedDate tarihinde yazıldı',
-                                          style: const TextStyle(fontSize: 10),
-                                        ),
-                                      ],
-                                    ),
-                                        content: SingleChildScrollView(
-                                          child: Text(content)),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text('Kapat'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              child: const Text('Detaylar için tıklayın'))
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 16,
+                        Text(name),
+                        Text(
+                          '$formattedDate tarihinde yazıldı',
+                          style: const TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    content: SingleChildScrollView(child: Text(content)),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Kapat'),
                       ),
                     ],
                   ),
-                ],
+                );
+              },
+              child: Card(
+                margin: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                color: const Color(0xF3EEEEEE),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(bottom: 8, top: 8),
+                          height: 90,
+                          child: const CircleAvatar(
+                            radius: 38,
+                            backgroundColor: Color(0xFFFFAA00),
+                            backgroundImage: AssetImage('assets/Can logo.png'),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              title,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Color(0x5C2F2F2F),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              formattedDate,
+                              style: TextStyle(
+                                fontSize: fontSize,
+                                color: const Color(0x5C2F2F2F),
+                              ),
+                            ),
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Değerlendirmeyi görmek',
+                                  style: TextStyle(
+                                      color: Color(0xFFFFAA00), fontSize: 12),
+                                ),
+                                Text(
+                                  'için tıklayınız',
+                                  style: TextStyle(
+                                      color: Color(0xFFFFAA00), fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           },

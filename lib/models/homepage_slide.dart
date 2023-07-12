@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class SlideshowContainer extends StatelessWidget {
-  const SlideshowContainer({Key? key});
+  const SlideshowContainer({super.key});
 
   @override
   Widget build(BuildContext context) {

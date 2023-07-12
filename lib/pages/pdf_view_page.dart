@@ -26,13 +26,11 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Can Akademi'),
         centerTitle: true,
         elevation: 0,
         backgroundColor: const Color(0xFFFFA000),
-        flexibleSpace: Container(
-            decoration: const BoxDecoration(
-        )),
-        title: const Text('PDF GÖRÜNTÜLEME EKRANI'),
+        flexibleSpace: Container(decoration: const BoxDecoration()),
       ),
       body: document != null
           ? Container(
@@ -42,14 +40,16 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
               child: PDFViewer(
                 document: document!,
                 lazyLoad: false,
-                zoomSteps: 3,
+                zoomSteps: 2,
                 scrollDirection: Axis.vertical,
                 backgroundColor: Colors.transparent,
                 indicatorPosition: IndicatorPosition.bottomLeft,
               ),
             )
           : const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
             ),
     );
   }

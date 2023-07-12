@@ -144,7 +144,7 @@ class _ExamResultsState extends State<ExamResults> {
                                   style:
                                       TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
                                 ),
-                                Text(DateFormat('dd.mm.yyyy').format(pdfData[index]['uploadDate'])),
+                                Text(DateFormat('dd.MM.yyyy').format(pdfData[index]['uploadDate'])),
                                 const SizedBox(height: 8,),
                               ],
                             ),
@@ -159,7 +159,13 @@ class _ExamResultsState extends State<ExamResults> {
           },
         ),
       ),
+     /*
+      floatingActionButton: FloatingActionButton(
+        onPressed: pickFile,
+        child: const Icon(Icons.upload_file),
+      ),
 
+      */
     );
   }
 }

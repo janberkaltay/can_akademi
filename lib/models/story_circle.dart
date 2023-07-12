@@ -14,7 +14,7 @@ class StoryCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = MediaQuery.of(context).textScaleFactor * 12;
+    double fontSize = MediaQuery.of(context).textScaleFactor * 11;
 
     List<String> imageNameParts = imageName.split('.');
     String imageNameWithoutExtension = imageNameParts.first;
@@ -23,14 +23,12 @@ class StoryCircle extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () => onTap(imageUrl),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 8,
-            ),
-            child: Container(
+          child: const Padding(
+            padding: EdgeInsets.only(left: 8),
+            child: SizedBox(
               height: 70,
-              child: const CircleAvatar(
-                radius: 38,
+              child: CircleAvatar(
+                radius: 40,
                 backgroundImage: AssetImage('assets/logoo.jpg'),
               ),
             ),
@@ -39,12 +37,11 @@ class StoryCircle extends StatelessWidget {
         Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 8, top: 4),
               child: Text(
                 imageNameWithoutExtension,
                 style: TextStyle(
                   fontSize: fontSize,
-                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),

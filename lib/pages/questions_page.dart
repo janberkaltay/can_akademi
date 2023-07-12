@@ -82,7 +82,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
         backgroundColor: const Color(0xFFFFA000),
         flexibleSpace: Container(decoration: const BoxDecoration()),
         title: const Text('Sizler İçin Ek Sorular'),
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
@@ -94,8 +94,8 @@ class _QuestionsPageState extends State<QuestionsPage> {
           ),
         ),
         child: GridView.builder(
-          gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2),
           itemCount: pdfData.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -126,12 +126,13 @@ class _QuestionsPageState extends State<QuestionsPage> {
                         pdfData[index]['name']
                             .split('.')
                             .first, // Remove the file extension
-                        style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w400),
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
                       ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color:  const Color(0xFFFFA000),
+                          color: const Color(0xFFFFA000),
                         ),
                         child: Row(
                           children: [
@@ -139,14 +140,21 @@ class _QuestionsPageState extends State<QuestionsPage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(height: 8,),
+                                const SizedBox(
+                                  height: 8,
+                                ),
                                 const Text(
                                   'Yüklenme tarihi ',
-                                  style:
-                                  TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500),
                                 ),
-                                Text(DateFormat('dd.mm.yyyy').format(pdfData[index]['uploadDate'])),
-                                const SizedBox(height: 8,),
+                                Text(DateFormat('dd.MM.yyyy')
+                                    .format(pdfData[index]['uploadDate'])),
+                                const SizedBox(
+                                  height: 8,
+                                ),
                               ],
                             ),
                           ],

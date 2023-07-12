@@ -1,9 +1,8 @@
 import 'package:can_mobil/models/hidden_navbar.dart';
+import 'package:can_mobil/models/service.dart';
 import 'package:can_mobil/models/teachers_evaluation.dart';
-import 'package:can_mobil/pages/exam_results.dart';
 import 'package:can_mobil/pages/questions_page.dart';
 import 'package:can_mobil/pages/story_page.dart';
-import 'package:can_mobil/pages/syllabus.dart';
 import 'package:can_mobil/pages/weekly_programs.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _service = FirebaseNotificationService();
   bool showSplashScreen = true;
   List<String> storyImageUrls = [];
   List<String> storyImageNames = [];
@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     loadStoryImageUrls();
+    _service.connectNotification();
   }
 
   Future<void> loadStoryImageUrls() async {
@@ -68,8 +69,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = MediaQuery.of(context).textScaleFactor * 12;
-
     if (showSplashScreen) {
       return Scaffold(
         backgroundColor: const Color(0xFFFFA000),
@@ -150,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              height: 90,
+              height: 100,
               child: ListView.builder(
                 itemCount: storyImageUrls.length,
                 scrollDirection: Axis.horizontal,
@@ -176,7 +175,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: EdgeInsets.only(left: 16, bottom: 10),
                   child: Text(
                     'Hizmetlerimiz',
                     style: TextStyle(
@@ -188,137 +187,153 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.32,
-                  width: MediaQuery.of(context).size.width * 0.5 - 16,
-                  padding: const EdgeInsets.only(left: 8, right: 8),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFAA00),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(height: 10),
-                      Image.asset(
-                        'assets/ders.png',
-                        width: 150,
-                        height: 60,
-                      ),
-                      Text(
-                        'Haftalık Ders Programı',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: fontSize,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Anlık olarak erişilebilen haftalık ders programımız ile birlikte öğretmenlerimiz ve öğrencilerimize zamanlarından tasarruf sağlıyoruz.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: fontSize,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const WeeklyProgram(),
-                          ));
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.5 - 32,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Göster',
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFAA00),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.5 - 24,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/Calendar-rafiki (1).png',
+                                  height: 110,
+                                )
+                              ],
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                                'Haftalık Program',
                                 style: TextStyle(
-                                    color: Color(0xFFFFAA00),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: fontSize),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ],
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Image.asset('assets/haftalık program.png'),
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const WeeklyProgram(),
+                            ));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Göster',
+                                    style: TextStyle(
+                                        color: Color(0xFFFFAA00),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(width: 16),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.32,
-                  width: MediaQuery.of(context).size.width * 0.5 - 16,
-                  padding: const EdgeInsets.only(left: 8, right: 8),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFAA00),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 10),
-                      Image.asset(
-                        'assets/sorular.png',
-                        width: 150,
-                        height: 60,
-                      ),
-                      Text(
-                        'Ek Sorular',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: fontSize,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Ek sorular, hocalarımız tarafından öğrencilerin öğrenme sürecini derinleştirmek ve daha fazla soru görmeleri için değerli fırsatlar sunar.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: fontSize,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const QuestionsPage(),
-                          ));
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.5 - 32,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Göster',
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFAA00),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.5 - 24,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/Seminar-rafiki.png',
+                                  height: 110,
+                                )
+                              ],
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                                'Ek Sorular',
                                 style: TextStyle(
-                                    color: Color(0xFFFFAA00),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: fontSize),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ],
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Image.asset('assets/ek sorular.png'),
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const WeeklyProgram(),
+                            ));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Göster',
+                                    style: TextStyle(
+                                        color: Color(0xFFFFAA00),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -339,7 +354,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.16,
+              height: MediaQuery.of(context).size.height * 0.2,
               child: EvaluationScreen(),
             ),
           ],

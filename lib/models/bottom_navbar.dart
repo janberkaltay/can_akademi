@@ -1,7 +1,6 @@
 import 'package:can_mobil/pages/exam_results.dart';
 import 'package:can_mobil/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavbar extends StatefulWidget {
   final int currentPageIndex;
@@ -68,16 +67,16 @@ class _BottomNavbarState extends State<BottomNavbar>
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
                       icon: Icon(
                         Icons.home,
-                        size: 32,
+                        size: 26,
                         color: widget.currentPageIndex == 0
                             ? const Color(0xFFFFA000)
                             : Colors.grey,
@@ -127,12 +126,15 @@ class _BottomNavbarState extends State<BottomNavbar>
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 16, ),
+                padding: const EdgeInsets.only(
+                  right: 16,
+                ),
                 child: Column(
                   children: [
                     IconButton(
                       icon: Icon(
                         Icons.bar_chart,
+                        size: 26,
                         color: widget.currentPageIndex == 1
                             ? const Color(0xFFFFA000)
                             : Colors.grey,

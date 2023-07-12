@@ -180,31 +180,44 @@ class _NavBarState extends State<NavBar> {
               ],
             ),
           ),
-          Container(
-            height: 40,
-            color: Colors.black,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Icon(
-                  Icons.copyright,
-                  size: 20,
-                  color: Color(0xFFFFA000),
-                ),
-                TextButton(
-                    onPressed: () async {
-                      const facebook =
-                          'https://www.linkedin.com/company/endless-software/';
-                      await launch(facebook);
-                    },
-                    child: const Text(
-                      'Powered By Endless Software',
-                      style: TextStyle(
-                        color: Color(0xFFFFA000),
+          GestureDetector(
+            onTap: () async {
+              const linkedin =
+                  'https://www.linkedin.com/company/endless-software/';
+              await launch(linkedin);
+            },
+            child: Container(
+              height: 78,
+              color: Colors.black,
+              child: const Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.copyright,
+                            size: 18,
+                            color: Color(0xFFFFA000),
+                          ),
+                          Text(
+                            ' 2023',
+                            style: TextStyle(
+                                color: Color(0xFFFFA000), fontSize: 14),
+                          )
+                        ],
                       ),
-                    ))
-              ]),
+                      Text(
+                        'Powered By Endless Software',
+                        style: TextStyle(
+                            color: Color(0xFFFFA000),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      )
+                    ]),
+              ),
             ),
           )
         ],
