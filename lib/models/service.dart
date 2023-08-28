@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:grock/grock.dart';
 
@@ -39,7 +40,9 @@ class FirebaseNotificationService{
 
   static Future<void> backgroundMessage(RemoteMessage message) async {
     await Firebase.initializeApp();
-    print("Hadnling a background message: ${message.messageId}");
+    if (kDebugMode) {
+      print("Hadnling a background message: ${message.messageId}");
+    }
   }
 }
 

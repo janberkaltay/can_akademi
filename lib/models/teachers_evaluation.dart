@@ -20,7 +20,7 @@ class EvaluationScreen extends StatelessWidget {
         final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
         return ListView.builder(
-          scrollDirection: Axis.horizontal, // Yatay kaydırma için
+          scrollDirection: Axis.horizontal,
           itemCount: documents.length,
           itemBuilder: (BuildContext context, int index) {
             Map<String, dynamic> data =
@@ -67,10 +67,11 @@ class EvaluationScreen extends StatelessWidget {
                 );
               },
               child: Card(
-                margin: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                margin: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
+                elevation: 0,
                 color: const Color(0xF3EEEEEE),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -116,6 +117,7 @@ class EvaluationScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: fontSize,
                                 color: const Color(0x5C2F2F2F),
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             const Column(

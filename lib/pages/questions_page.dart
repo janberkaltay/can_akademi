@@ -74,7 +74,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFA000),
-      bottomNavigationBar: BottomNavbar(
+      bottomNavigationBar: const BottomNavbar(
         currentPageIndex: 2,
       ),
       appBar: AppBar(
@@ -168,10 +168,12 @@ class _QuestionsPageState extends State<QuestionsPage> {
           },
         ),
       ),
-      /* floatingActionButton: FloatingActionButton(
+       /*
+       floatingActionButton: FloatingActionButton(
         onPressed: pickFile,
         child: const Icon(Icons.upload_file),
-      ), */
+      ),
+        */
     );
   }
 }

@@ -1,4 +1,4 @@
-package com.example.can_akademi
+package com.canmobil.can_akademi
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -14,38 +14,47 @@ class StoryCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = MediaQuery.of(context).textScaleFactor * 11;
+    double fontSize = MediaQuery.of(context).textScaleFactor * 12;
 
     List<String> imageNameParts = imageName.split('.');
     String imageNameWithoutExtension = imageNameParts.first;
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GestureDetector(
           onTap: () => onTap(imageUrl),
-          child: const Padding(
-            padding: EdgeInsets.only(left: 8),
-            child: SizedBox(
-              height: 70,
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            width: 70,
+            height: 70,
+            padding: const EdgeInsets.all(2),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Colors.yellow, Colors.white],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
+            child: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black,
+              ),
               child: CircleAvatar(
                 radius: 40,
-                backgroundImage: AssetImage('assets/logoo.jpg'),
+                backgroundImage: NetworkImage(imageUrl),
               ),
             ),
           ),
         ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8, top: 4),
-              child: Text(
-                imageNameWithoutExtension,
-                style: TextStyle(
-                  fontSize: fontSize,
-                ),
-              ),
-            ),
-          ],
+        const SizedBox(height: 4),
+        Text(
+          imageNameWithoutExtension,
+          style: TextStyle(
+            fontSize: fontSize,
+          ),
         ),
       ],
     );

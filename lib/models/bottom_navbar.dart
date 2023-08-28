@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class BottomNavbar extends StatefulWidget {
   final int currentPageIndex;
 
-  BottomNavbar({required this.currentPageIndex});
+  const BottomNavbar({super.key, required this.currentPageIndex});
 
   @override
   _BottomNavbarState createState() => _BottomNavbarState();

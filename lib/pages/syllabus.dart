@@ -81,9 +81,9 @@ class _SyllabusState extends State<Syllabus> {
         title: const Text('Ders Programı'),
         centerTitle: true,
       ),
-      bottomNavigationBar: BottomNavbar(currentPageIndex: 2),
+      bottomNavigationBar: const BottomNavbar(currentPageIndex: 2),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -158,10 +158,13 @@ class _SyllabusState extends State<Syllabus> {
           },
         ),
       ),
-      /* floatingActionButton: FloatingActionButton(
+      /*
+      floatingActionButton: FloatingActionButton(
         onPressed: pickFile,
         child: const Icon(Icons.upload_file),
-      ), */
+      ),
+
+       */
     );
   }
 }

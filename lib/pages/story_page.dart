@@ -155,7 +155,7 @@ class _StoryPageState extends State<StoryPage>
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.close, color: Colors.white),
+                        icon: const Icon(Icons.close, color: Colors.white),
                         onPressed: () {
                           Navigator.pop(context);
                         },

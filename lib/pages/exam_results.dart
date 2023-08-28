@@ -73,7 +73,7 @@ class _ExamResultsState extends State<ExamResults> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFA000),
-      bottomNavigationBar: BottomNavbar(
+      bottomNavigationBar: const BottomNavbar(
         currentPageIndex: 1,
       ),
       appBar: AppBar(
@@ -159,12 +159,11 @@ class _ExamResultsState extends State<ExamResults> {
           },
         ),
       ),
-     /*
+      /*
       floatingActionButton: FloatingActionButton(
         onPressed: pickFile,
         child: const Icon(Icons.upload_file),
       ),
-
       */
     );
   }

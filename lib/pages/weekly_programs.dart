@@ -163,10 +163,12 @@ class _WeeklyProgramState extends State<WeeklyProgram> {
           },
         ),
       ),
-      /* floatingActionButton: FloatingActionButton(
+      /*
+      floatingActionButton: FloatingActionButton(
         onPressed: pickFile,
         child: const Icon(Icons.upload_file),
-      ), */
+      ),
+      */
     );
   }
 }

@@ -14,7 +14,7 @@ class _TeacherPageState extends State<TeacherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavbar(
+      bottomNavigationBar: const BottomNavbar(
         currentPageIndex: 2,
       ),
       backgroundColor: const Color(0xFFFFAA00),
@@ -71,7 +71,7 @@ class TeacherCard extends StatelessWidget {
   final String teacherTitle;
   final String? teacherBio;
 
-  const TeacherCard({
+  const TeacherCard({super.key,
     required this.teacherName,
     required this.teacherTitle,
     required this.teacherBio,

@@ -69,6 +69,15 @@ class AboutPage extends StatelessWidget {
               "etkinliğini ve öğrencilerimizin potansiyellerini ortaya çıkarmadaki başarımızı göstermektedir. Kendini geliştirmek ve başarıya ulaşmak isteyen ortaokul öğrencileri için Can Akademi Adana, güvenilir bir eğitim kurumu olarak tercih edilmektedir.",
               style: TextStyle(fontSize: 14),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Illustrations by storyset.com',
+                  style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ],
         ),
       ),

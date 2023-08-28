@@ -4,6 +4,7 @@ import 'package:can_mobil/models/teachers_evaluation.dart';
 import 'package:can_mobil/pages/questions_page.dart';
 import 'package:can_mobil/pages/story_page.dart';
 import 'package:can_mobil/pages/weekly_programs.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../models/bottom_navbar.dart';
@@ -51,7 +52,9 @@ class _HomePageState extends State<HomePage> {
         showSplashScreen = false;
       });
     } catch (e) {
-      print('Error loading story image URLs: $e');
+      if (kDebugMode) {
+        print('Error loading story image URLs: $e');
+      }
     }
   }
 
@@ -71,7 +74,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if (showSplashScreen) {
       return Scaffold(
-        backgroundColor: const Color(0xFFFFA000),
+        backgroundColor: const Color(0xFFFFAA00),
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,6 +84,20 @@ class _HomePageState extends State<HomePage> {
               Image.asset('assets/Can logo.png'),
               const CircularProgressIndicator(
                 color: Colors.black,
+              ),
+              const Column(
+                children: [
+                  Text("Can Mobil'e erişebilmek için ",style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),),
+                  Text("internet bağlantın olması gerekir.",style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),),
+                ],
               ),
               const SizedBox(height: 50),
               const Row(
@@ -109,10 +126,10 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      bottomNavigationBar: BottomNavbar(currentPageIndex: 0),
+      bottomNavigationBar: const BottomNavbar(currentPageIndex: 0),
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(160),
+        preferredSize: const Size.fromHeight(170),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -149,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              height: 100,
+              height: 110,
               child: ListView.builder(
                 itemCount: storyImageUrls.length,
                 scrollDirection: Axis.horizontal,
@@ -175,7 +192,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 16, bottom: 10),
+                  padding: EdgeInsets.only(left: 16, bottom: 10, top: 14),
                   child: Text(
                     'Hizmetlerimiz',
                     style: TextStyle(
@@ -192,8 +209,8 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.only(left: 16),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFAA00),
                       borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey[200],
                     ),
                     width: MediaQuery.of(context).size.width * 0.5 - 24,
                     child: Column(
@@ -240,7 +257,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               height: 28,
                               decoration: BoxDecoration(
-                                color: Colors.black,
+                                color: const Color(0xFFFFAA00),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: const Row(
@@ -249,7 +266,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     'Göster',
                                     style: TextStyle(
-                                        color: Color(0xFFFFAA00),
+                                        color: Colors.black,
                                         fontWeight: FontWeight.w500,
                                         fontSize: 12),
                                   ),
@@ -266,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.only(left: 16),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFAA00),
+                      color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(20),
                     ),
                     width: MediaQuery.of(context).size.width * 0.5 - 24,
@@ -306,7 +323,7 @@ class _HomePageState extends State<HomePage> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const WeeklyProgram(),
+                              builder: (context) => const QuestionsPage(),
                             ));
                           },
                           child: Padding(
@@ -314,7 +331,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               height: 28,
                               decoration: BoxDecoration(
-                                color: Colors.black,
+                                color: const Color(0xFFFFAA00),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: const Row(
@@ -323,7 +340,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     'Göster',
                                     style: TextStyle(
-                                        color: Color(0xFFFFAA00),
+                                        color: Colors.black,
                                         fontWeight: FontWeight.w500,
                                         fontSize: 12),
                                   ),
@@ -342,7 +359,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 16, bottom: 10, top: 10),
+                  padding: EdgeInsets.only(left: 16, bottom: 10, top: 20),
                   child: Text(
                     'Aylık Öğretmen Değerlendirmeleri',
                     style: TextStyle(
@@ -354,8 +371,8 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
-              child: EvaluationScreen(),
+              height: MediaQuery.of(context).size.height * 0.22,
+              child: const EvaluationScreen(),
             ),
           ],
         ),
