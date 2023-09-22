@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'pdf_view_page.dart';
 
@@ -52,7 +53,10 @@ class _ExamResultsState extends State<ExamResults> {
   }
 
   void getAllPdf() async {
-    final results = await _firebaseFirestore.collection('pdfs').get();
+    final results = await _firebaseFirestore
+        .collection('pdfs')
+        .orderBy('uploadDate', descending: true)
+        .get();
 
     pdfData = results.docs.map((e) {
       Map<String, dynamic> data = e.data();
@@ -92,9 +96,7 @@ class _ExamResultsState extends State<ExamResults> {
             topRight: Radius.circular(30),
           ),
         ),
-        child: GridView.builder(
-          gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        child: ListView.builder(
           itemCount: pdfData.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -107,47 +109,63 @@ class _ExamResultsState extends State<ExamResults> {
                   ));
                 },
                 child: Container(
+                //
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0xF3EEEEEE),
                   ),
-                  child: Column(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 4),
-                      const Icon(
-                        Icons.picture_as_pdf,
-                        color: Colors.red,
-                        size: 50,
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8),
+                        child: Icon(
+                          FontAwesomeIcons.filePdf,
+                          color: Colors.red,
+                          size: 30,
+                        ),
                       ),
-                      Text(
-                        pdfData[index]['name']
-                            .split('.')
-                            .first, // Remove the file extension
-                        style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w400),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Text(
+                          pdfData[index]['name'].split('.').first,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
                       ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color:  const Color(0xFFFFA000),
+                          color: const Color(0xFFFFA000),
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 16),
+                            const SizedBox(width: 10),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(height: 8,),
+                                const SizedBox(
+                                  height: 8,
+                                ),
                                 const Text(
                                   'Yüklenme tarihi ',
-                                  style:
-                                      TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500),
                                 ),
-                                Text(DateFormat('dd.MM.yyyy').format(pdfData[index]['uploadDate'])),
-                                const SizedBox(height: 8,),
+                                Text(DateFormat('dd.MM.yyyy')
+                                    .format(pdfData[index]['uploadDate'])),
+                                const SizedBox(
+                                  height: 8,
+                                ),
                               ],
                             ),
+                            const SizedBox(width: 10),
                           ],
                         ),
                       ),

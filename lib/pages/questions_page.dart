@@ -5,7 +5,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'pdf_view_page.dart';
 
 class QuestionsPage extends StatefulWidget {
@@ -53,7 +55,10 @@ class _QuestionsPageState extends State<QuestionsPage> {
   }
 
   void getAllPdf() async {
-    final results = await _firebaseFirestore.collection('questions').get();
+    final results = await _firebaseFirestore
+        .collection('questions')
+        .orderBy('uploadDate', descending: true)
+        .get();
 
     pdfData = results.docs.map((e) {
       Map<String, dynamic> data = e.data();
@@ -81,7 +86,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
         elevation: 0,
         backgroundColor: const Color(0xFFFFA000),
         flexibleSpace: Container(decoration: const BoxDecoration()),
-        title: const Text('Sizler İçin Ek Sorular'),
+        title: const Text('Öğrenciler İçin Ek Sorular'),
         centerTitle: true,
       ),
       body: Container(
@@ -93,9 +98,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
             topRight: Radius.circular(30),
           ),
         ),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
+        child: ListView.builder(
           itemCount: pdfData.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -112,23 +115,10 @@ class _QuestionsPageState extends State<QuestionsPage> {
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0xF3EEEEEE),
                   ),
-                  child: Column(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 4),
-                      const Icon(
-                        Icons.picture_as_pdf,
-                        color: Colors.red,
-                        size: 50,
-                      ),
-                      Text(
-                        pdfData[index]['name']
-                            .split('.')
-                            .first, // Remove the file extension
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w400),
-                      ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -136,7 +126,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 16),
+                            const SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -157,8 +147,33 @@ class _QuestionsPageState extends State<QuestionsPage> {
                                 ),
                               ],
                             ),
+                            const SizedBox(width: 6),
                           ],
                         ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Text(
+                          pdfData[index]['name'].split('.').first,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4),
+                        child: IconButton(
+                            onPressed: () {
+                              launch(pdfData[index]['url']);
+                            },
+                            icon: const Icon(
+                              Icons.download,
+                              color: Colors.green,
+                              size: 30,
+                            )),
                       ),
                     ],
                   ),
@@ -168,7 +183,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
           },
         ),
       ),
-       /*
+      /*
        floatingActionButton: FloatingActionButton(
         onPressed: pickFile,
         child: const Icon(Icons.upload_file),

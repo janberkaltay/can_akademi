@@ -204,7 +204,7 @@ class _NavBarState extends State<NavBar> {
               await launch(linkedin);
             },
             child: Container(
-              height: 60,
+              height: 80,
               color: Colors.black,
               child: const Padding(
                 padding: EdgeInsets.only(bottom: 8),

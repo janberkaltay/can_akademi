@@ -1,3 +1,4 @@
+import 'package:can_mobil/models/countdown.dart';
 import 'package:can_mobil/models/hidden_navbar.dart';
 import 'package:can_mobil/models/service.dart';
 import 'package:can_mobil/models/teachers_evaluation.dart';
@@ -378,8 +379,8 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const SizedBox(
-              child: Text('LGS SAYACI GELECEK'),
-            ),
+              child: CountdownPage(),
+            )
           ],
         ),
       ),

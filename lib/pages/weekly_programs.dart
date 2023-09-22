@@ -126,10 +126,17 @@ class _WeeklyProgramState extends State<WeeklyProgram> {
                           size: 30,
                         ),
                       ),
-                      Text(
-                        pdfData[index]['name'].split('.').first,
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w400),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Text(
+                          pdfData[index]['name'].split('.').first,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
                       ),
                       Container(
                         padding: const EdgeInsets.only(right: 8),
