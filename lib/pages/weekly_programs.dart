@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'pdf_view_page.dart';
 
@@ -51,7 +52,12 @@ class _WeeklyProgramState extends State<WeeklyProgram> {
   }
 
   void getAllPdf() async {
-    final results = await _firebaseFirestore.collection('weekly').get();
+    final results = await _firebaseFirestore
+        .collection('weekly')
+        .orderBy('uploadDate',
+            descending:
+                true) // Sıralamayı tarihe göre yapar, en yeni en üstte olur
+        .get();
 
     pdfData = results.docs.map((e) {
       Map<String, dynamic> data = e.data();
@@ -88,9 +94,9 @@ class _WeeklyProgramState extends State<WeeklyProgram> {
             topRight: Radius.circular(30),
           ),
         ),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
+        child: ListView.builder(
+          //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //     crossAxisCount: 2),
           itemCount: pdfData.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -107,33 +113,36 @@ class _WeeklyProgramState extends State<WeeklyProgram> {
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0xF3EEEEEE),
                   ),
-                  child: Column(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 4),
-                      const Icon(
-                        Icons.picture_as_pdf,
-                        color: Colors.red,
-                        size: 50,
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8),
+                        child: Icon(
+                          FontAwesomeIcons.filePdf,
+                          // Icons.picture_as_pdf,
+                          color: Colors.red,
+                          size: 30,
+                        ),
                       ),
                       Text(
-                        pdfData[index]['name']
-                            .split('.')
-                            .first, // Remove the file extension
+                        pdfData[index]['name'].split('.').first,
                         style: const TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w400),
+                            fontSize: 14, fontWeight: FontWeight.w400),
                       ),
                       Container(
+                        padding: const EdgeInsets.only(right: 8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: const Color(0xFFFFA000),
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 16),
+                            const SizedBox(width: 20),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const SizedBox(
                                   height: 8,
@@ -145,13 +154,14 @@ class _WeeklyProgramState extends State<WeeklyProgram> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                Text(DateFormat('dd.mm.yyyy')
+                                Text(DateFormat('dd.MM.yyyy')
                                     .format(pdfData[index]['uploadDate'])),
                                 const SizedBox(
-                                  height: 8,
+                                  height: 10,
                                 ),
                               ],
                             ),
+                            const SizedBox(width: 10)
                           ],
                         ),
                       ),

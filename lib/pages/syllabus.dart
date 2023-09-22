@@ -52,8 +52,12 @@ class _SyllabusState extends State<Syllabus> {
     }
   }
 
+
   void getAllPdf() async {
-    final results = await _firebaseFirestore.collection('programs').get();
+    final results = await _firebaseFirestore
+        .collection('programs')
+        .orderBy('uploadDate', descending: true) // Sıralamayı tarihe göre yapar, en yeni en üstte olur
+        .get();
 
     pdfData = results.docs.map((e) {
       Map<String, dynamic> data = e.data();
@@ -143,7 +147,7 @@ class _SyllabusState extends State<Syllabus> {
                                   style:
                                   TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
                                 ),
-                                Text(DateFormat('dd.mm.yyyy').format(pdfData[index]['uploadDate'])),
+                                Text(DateFormat('dd.MM.yyyy').format(pdfData[index]['uploadDate'])),
                                 const SizedBox(height: 8,),
                               ],
                             ),

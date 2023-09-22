@@ -87,16 +87,22 @@ class _HomePageState extends State<HomePage> {
               ),
               const Column(
                 children: [
-                  Text("Can Mobil'e erişebilmek için ",style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),),
-                  Text("internet bağlantın olması gerekir.",style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),),
+                  Text(
+                    "Can Mobil'e erişebilmek için ",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    "internet bağlantın olması gerekir.",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 50),
@@ -249,6 +255,7 @@ class _HomePageState extends State<HomePage> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
+                              // builder: (context) => const WeeklyProgram(),
                               builder: (context) => const WeeklyProgram(),
                             ));
                           },
@@ -361,7 +368,7 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: EdgeInsets.only(left: 16, bottom: 10, top: 20),
                   child: Text(
-                    'Aylık Öğretmen Değerlendirmeleri',
+                    "LGS'ye Kaç Gün Kaldı",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -370,9 +377,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.22,
-              child: const EvaluationScreen(),
+            const SizedBox(
+              child: Text('LGS SAYACI GELECEK'),
             ),
           ],
         ),

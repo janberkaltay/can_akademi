@@ -1,4 +1,5 @@
 import 'package:can_mobil/pages/about_page.dart';
+import 'package:can_mobil/pages/evaluation_page.dart';
 import 'package:can_mobil/pages/syllabus.dart';
 import 'package:can_mobil/pages/teacher_page.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,22 @@ class _NavBarState extends State<NavBar> {
           Expanded(
             child: ListView(
               children: [
+                ListTile(
+                  title: const Text('Aylık Öğretmen Değerlendirmeleri',
+                      style:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const EvaluationScreen()),
+                    );
+                  },
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 24,
+                    color: Colors.black,
+                  ),
+                ),
                 ListTile(
                   title: const Text('Dönemlik Ders Programı',
                       style:
@@ -183,11 +200,11 @@ class _NavBarState extends State<NavBar> {
           GestureDetector(
             onTap: () async {
               const linkedin =
-                  'https://www.linkedin.com/company/endless-software/';
+                  'https://endlesstech.org/';
               await launch(linkedin);
             },
             child: Container(
-              height: 78,
+              height: 60,
               color: Colors.black,
               child: const Padding(
                 padding: EdgeInsets.only(bottom: 8),
@@ -210,12 +227,12 @@ class _NavBarState extends State<NavBar> {
                         ],
                       ),
                       Text(
-                        'Powered By Endless Software',
+                        'Endless Software & Janberk Altay',
                         style: TextStyle(
                             color: Color(0xFFFFA000),
                             fontSize: 16,
                             fontWeight: FontWeight.w700),
-                      )
+                      ),
                     ]),
               ),
             ),
