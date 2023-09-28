@@ -27,14 +27,11 @@ class LGSInfoDetail extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: SizedBox(
-          width:
-          MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width,
           child: Text(
             title,
             maxLines: 2,
-            style: const TextStyle(
-              fontSize: 18
-            ),
+            style: const TextStyle(fontSize: 18),
           ),
         ),
         backgroundColor: const Color(0xFFFFAA00),
@@ -52,29 +49,46 @@ class LGSInfoDetail extends StatelessWidget {
         padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(content),
+              Text(
+                content,
+                textAlign: TextAlign.justify,
+              ),
               const SizedBox(
                 height: 20,
               ),
-              Text(content2),
+              Text(
+                content2,
+                textAlign: TextAlign.justify,
+              ),
               const SizedBox(
                 height: 20,
               ),
-              Text(content3),
+              Text(
+                content3,
+                textAlign: TextAlign.justify,
+              ),
               const SizedBox(
                 height: 20,
               ),
-              Text(content4),
+              Text(
+                content4,
+                textAlign: TextAlign.justify,
+              ),
               const SizedBox(
                 height: 20,
               ),
-              Text(content5),
+              Text(
+                content5,
+                textAlign: TextAlign.justify,
+              ),
               const SizedBox(
                 height: 20,
               ),
-              Text(content6)
+              Text(
+                content6,
+                textAlign: TextAlign.justify,
+              )
             ],
           ),
         ),
