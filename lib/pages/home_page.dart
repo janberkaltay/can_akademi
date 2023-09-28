@@ -1,7 +1,7 @@
 import 'package:can_mobil/models/countdown.dart';
 import 'package:can_mobil/models/hidden_navbar.dart';
 import 'package:can_mobil/models/service.dart';
-import 'package:can_mobil/models/teachers_evaluation.dart';
+import 'package:can_mobil/pages/lgs_info.dart';
 import 'package:can_mobil/pages/questions_page.dart';
 import 'package:can_mobil/pages/story_page.dart';
 import 'package:can_mobil/pages/weekly_programs.dart';
@@ -135,254 +135,303 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       bottomNavigationBar: const BottomNavbar(currentPageIndex: 0),
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(170),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppBar(
-              backgroundColor: const Color(0xFFFFA000),
-              centerTitle: false,
-              title: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Merhaba! Can Mobil'e",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'Hoş geldin!',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              elevation: 0,
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFFFFA000),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-              height: 110,
-              child: ListView.builder(
-                itemCount: storyImageUrls.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  String imageUrl = storyImageUrls[index];
-                  String imageName = storyImageNames[index];
-                  return StoryCircle(
-                    onTap: _openStory,
-                    imageUrl: imageUrl,
-                    imageName: imageName,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
       endDrawer: const NavBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Row(
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            backgroundColor: Color(0xFFFFA000),
+            centerTitle: false,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 16, bottom: 10, top: 14),
-                  child: Text(
-                    'Hizmetlerimiz',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
+                Text(
+                  "Merhaba! Can Mobil'e",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  'Hoş geldin!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
-            Row(
+            elevation: 0,
+            pinned: false, // App bar'ın ekranın üstünde sabit kalmasını sağlar
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate([
+            Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey[200],
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFFA000),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
                     ),
-                    width: MediaQuery.of(context).size.width * 0.5 - 24,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                  height: 110,
+                  child: ListView.builder(
+                    itemCount: storyImageUrls.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      String imageUrl = storyImageUrls[index];
+                      String imageName = storyImageNames[index];
+                      return StoryCircle(
+                        onTap: _openStory,
+                        imageUrl: imageUrl,
+                        imageName: imageName,
+                      );
+                    },
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const LgsInfo(),
+                    ));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        // color: Colors.green,
+                        color: const Color(0xFFFAC85F),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 16),
+                            child: Text(
+                              'LGS Hakkında Bilinmesi Gerekenler',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 0),
+                            child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFFFAA00),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(
+                                  Icons.arrow_circle_right_outlined,
+                                  size: 34,
+                                  color: Colors.black,
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 16, bottom: 10),
+                      child: Text(
+                        'Hizmetlerimiz',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey[200],
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.5 - 24,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'assets/Calendar-rafiki (1).png',
-                                  height: 110,
-                                )
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/Calendar-rafiki (1).png',
+                                      height: 110,
+                                    )
+                                  ],
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  child: Text(
+                                    'Haftalık Program',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
                               ],
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: Text(
-                                'Haftalık Program',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                            Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Image.asset('assets/haftalık program.png'),
+                            ),
+                            const SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  // builder: (context) => const WeeklyProgram(),
+                                  builder: (context) => const WeeklyProgram(),
+                                ));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Container(
+                                  height: 28,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFFFAA00),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Göster',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 10),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.asset('assets/haftalık program.png'),
-                        ),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              // builder: (context) => const WeeklyProgram(),
-                              builder: (context) => const WeeklyProgram(),
-                            ));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              height: 28,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFFFAA00),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Göster',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.5 - 24,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.5 - 24,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'assets/Seminar-rafiki.png',
-                                  height: 110,
-                                )
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/Seminar-rafiki.png',
+                                      height: 110,
+                                    )
+                                  ],
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  child: Text(
+                                    'Ek Sorular',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
                               ],
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: Text(
-                                'Ek Sorular',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                            Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Image.asset('assets/ek sorular.png'),
+                            ),
+                            const SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const QuestionsPage(),
+                                ));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Container(
+                                  height: 28,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFFFAA00),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Göster',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 10),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.asset('assets/ek sorular.png'),
-                        ),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const QuestionsPage(),
-                            ));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              height: 28,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFFFAA00),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Göster',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 16, bottom: 10, top: 10),
+                      child: Text(
+                        "LGS'ye Kaç Gün Kaldı",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  child: CountdownPage(),
+                ),
+                const SizedBox(
+                  height: 50,
+                )
               ],
             ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 16, bottom: 10, top: 20),
-                  child: Text(
-                    "LGS'ye Kaç Gün Kaldı",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              child: CountdownPage(),
-            )
-          ],
-        ),
+          ]))
+        ],
       ),
     );
   }

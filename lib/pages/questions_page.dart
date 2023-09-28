@@ -5,7 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'pdf_view_page.dart';
@@ -131,7 +130,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(
-                                  height: 8,
+                                  height: 10,
                                 ),
                                 const Text(
                                   'Yüklenme tarihi ',
@@ -143,7 +142,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
                                 Text(DateFormat('dd.MM.yyyy')
                                     .format(pdfData[index]['uploadDate'])),
                                 const SizedBox(
-                                  height: 8,
+                                  height: 10,
                                 ),
                               ],
                             ),
@@ -163,18 +162,40 @@ class _QuestionsPageState extends State<QuestionsPage> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 4),
+                      Container(
+                        width: 58,
+                        height: 58,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         child: IconButton(
                             onPressed: () {
                               launch(pdfData[index]['url']);
                             },
                             icon: const Icon(
                               Icons.download,
-                              color: Colors.green,
-                              size: 30,
+                              color: Color(0xFFFFAA00),
+                              size: 36,
                             )),
                       ),
+                      /* Padding(
+                        padding: const EdgeInsets.only(right: 0),
+                        child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFFAA00),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(
+                              Icons.arrow_circle_right_outlined,
+                              size: 34,
+                              color: Colors.black,
+                            )),
+                      )
+
+                      */
                     ],
                   ),
                 ),

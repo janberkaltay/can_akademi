@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-
 import '../models/EvaluationDetail.dart';
 
 class EvaluationScreen extends StatelessWidget {
@@ -74,7 +73,6 @@ class EvaluationScreen extends StatelessWidget {
                         ),
                       );
                     },
-
                     child: Card(
                       margin: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 16),

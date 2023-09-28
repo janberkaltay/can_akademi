@@ -65,7 +65,7 @@ class CountdownPageState extends State<CountdownPage> {
           Text(
             remainingTime,
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
