@@ -49,6 +49,10 @@ class LgsInfo extends StatelessWidget {
                 final content4 = document['content4'] as String;
                 final content5 = document['content5'] as String;
                 final content6 = document['content6'] as String;
+                final content7 = document['content7'] as String;
+                final content8 = document['content8'] as String;
+                final content9 = document['content9'] as String;
+                final content10 = document['content10'] as String;
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -62,6 +66,10 @@ class LgsInfo extends StatelessWidget {
                           content4: content4,
                           content5: content5,
                           content6: content6,
+                          content7: content7,
+                          content8: content8,
+                          content9: content9,
+                          content10: content10,
                         ),
                       ),
                     );
@@ -142,4 +150,3 @@ class LgsInfo extends StatelessWidget {
     );
   }
 }
-

@@ -8,6 +8,10 @@ class LGSInfoDetail extends StatelessWidget {
   final String content4;
   final String content5;
   final String content6;
+  final String content7;
+  final String content8;
+  final String content9;
+  final String content10;
 
   const LGSInfoDetail(
       {super.key,
@@ -17,7 +21,13 @@ class LGSInfoDetail extends StatelessWidget {
       required this.content3,
       required this.content4,
       required this.content5,
-      required this.content6});
+        required this.content6,
+        required this.content7,
+        required this.content8,
+        required this.content9,
+        required this.content10,
+
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +98,35 @@ class LGSInfoDetail extends StatelessWidget {
               Text(
                 content6,
                 textAlign: TextAlign.justify,
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                content7,
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                content8,
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                content9,
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                content10,
+                textAlign: TextAlign.justify,
+              ),
             ],
           ),
         ),
