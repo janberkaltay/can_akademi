@@ -7,28 +7,26 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'pdf_view_page.dart';
 
-class QuestionsPage extends StatefulWidget {
-  const QuestionsPage({Key? key}) : super(key: key);
+class AnswerKeys extends StatefulWidget {
+  const AnswerKeys({Key? key}) : super(key: key);
 
   @override
-  State<QuestionsPage> createState() => _QuestionsPageState();
+  State<AnswerKeys> createState() => _AnswerKeysState();
 }
 
-class _QuestionsPageState extends State<QuestionsPage> {
+class _AnswerKeysState extends State<AnswerKeys> {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> pdfData = [];
 
   Future<String?> uploadPdf(String fileName, File file) async {
-    final reference =
-        FirebaseStorage.instance.ref().child("questions/$fileName");
+    final reference = FirebaseStorage.instance.ref().child("pdfs/$fileName");
     final uploadTask = reference.putFile(file);
     await uploadTask.whenComplete(() {});
     final downloadLink = await reference.getDownloadURL();
 
-    await _firebaseFirestore.collection('questions').add({
+    await _firebaseFirestore.collection('answerKeys').add({
       "name": fileName,
       "url": downloadLink,
       "uploadDate": DateTime.now(),
@@ -56,7 +54,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
 
   void getAllPdf() async {
     final results = await _firebaseFirestore
-        .collection('questions')
+        .collection('answerKeys')
         .orderBy('uploadDate', descending: true)
         .get();
 
@@ -80,13 +78,13 @@ class _QuestionsPageState extends State<QuestionsPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFFFA000),
       bottomNavigationBar: const BottomNavbar(
-        currentPageIndex: 2,
+        currentPageIndex: 1,
       ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xFFFFA000),
-        flexibleSpace: Container(decoration: const BoxDecoration()),
-        title: const Text('Öğrenciler İçin Ek Sorular'),
+//        flexibleSpace: Container(decoration: const BoxDecoration()),
+        title: const Text('Cevap Anahtarları'),
         centerTitle: true,
       ),
       body: Container(
@@ -119,6 +117,26 @@ class _QuestionsPageState extends State<QuestionsPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8),
+                        child: Icon(
+                          FontAwesomeIcons.filePdf,
+                          color: Colors.red,
+                          size: 30,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Text(
+                          pdfData[index]['name'].split('.').first,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -128,10 +146,9 @@ class _QuestionsPageState extends State<QuestionsPage> {
                           children: [
                             const SizedBox(width: 10),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(
-                                  height: 10,
+                                  height: 8,
                                 ),
                                 const Text(
                                   'Yüklenme tarihi ',
@@ -143,60 +160,14 @@ class _QuestionsPageState extends State<QuestionsPage> {
                                 Text(DateFormat('dd.MM.yyyy')
                                     .format(pdfData[index]['uploadDate'])),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 8,
                                 ),
                               ],
                             ),
-                            const SizedBox(width: 6),
+                            const SizedBox(width: 10),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        child: Text(
-                          pdfData[index]['name'].split('.').first,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 58,
-                        height: 58,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: IconButton(
-                            onPressed: () {
-                              launch(pdfData[index]['url']);
-                            },
-                            icon: const Icon(
-                              Icons.download,
-                              color: Color(0xFFFFAA00),
-                              size: 36,
-                            )),
-                      ),
-                      /* Padding(
-                        padding: const EdgeInsets.only(right: 0),
-                        child: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFFAA00),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Icon(
-                              Icons.arrow_circle_right_outlined,
-                              size: 34,
-                              color: Colors.black,
-                            )),
-                      )
-
-                      */
                     ],
                   ),
                 ),

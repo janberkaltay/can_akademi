@@ -426,7 +426,7 @@ class _HomePageState extends State<HomePage> {
                   child: CountdownPage(),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 20,
                 )
               ],
             ),

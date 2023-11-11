@@ -63,7 +63,6 @@ class _ExamResultsState extends State<ExamResults> {
       data["uploadDate"] = e.data()["uploadDate"].toDate();
       return data;
     }).toList();
-
     setState(() {});
   }
 
@@ -83,8 +82,12 @@ class _ExamResultsState extends State<ExamResults> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xFFFFA000),
-//        flexibleSpace: Container(decoration: const BoxDecoration()),
-        title: const Text('Haftanın Sınav Sonuçları'),
+        title: const Column(
+          children: [
+            Text('Haftanın Sınav Sonuçları'),
+            Text('Cevap Anahtarları Artık Gizli Menü İçerisinde', style: TextStyle(fontSize: 12, color: Colors.white),),
+          ],
+        ),
         centerTitle: false,
       ),
       body: Container(
@@ -109,7 +112,7 @@ class _ExamResultsState extends State<ExamResults> {
                   ));
                 },
                 child: Container(
-                //
+                  //
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0xF3EEEEEE),
@@ -180,9 +183,9 @@ class _ExamResultsState extends State<ExamResults> {
       /*
       floatingActionButton: FloatingActionButton(
         onPressed: pickFile,
-        child: const Icon(Icons.upload_file),
+        child: const Icon(FontAwesomeIcons.filePdf, color: Colors.white,),
       ),
-      */
+       */
     );
   }
 }

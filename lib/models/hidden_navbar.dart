@@ -1,4 +1,5 @@
 import 'package:can_mobil/pages/about_page.dart';
+import 'package:can_mobil/pages/answer_keys.dart';
 import 'package:can_mobil/pages/evaluation_page.dart';
 import 'package:can_mobil/pages/syllabus.dart';
 import 'package:can_mobil/pages/teacher_page.dart';
@@ -73,6 +74,22 @@ class _NavBarState extends State<NavBar> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const Syllabus()),
+                    );
+                  },
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 24,
+                    color: Colors.black,
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Cevap Anahtarları',
+                      style:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AnswerKeys()),
                     );
                   },
                   trailing: const Icon(

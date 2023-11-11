@@ -179,9 +179,8 @@ class _SyllabusState extends State<Syllabus> {
       /*
       floatingActionButton: FloatingActionButton(
         onPressed: pickFile,
-        child: const Icon(Icons.upload_file),
+        child: const Icon(FontAwesomeIcons.filePdf, color: Colors.white,),
       ),
-
        */
     );
   }

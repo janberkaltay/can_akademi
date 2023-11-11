@@ -5,14 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:grock/grock.dart';
 
-class FirebaseNotificationService{
+class FirebaseNotificationService {
   late final FirebaseMessaging messaging;
 
   void settingNotification() async {
     await messaging.requestPermission(
       alert: true,
+      badge: true,
       sound: true,
-      badge: true
     );
   }
 
@@ -21,28 +21,36 @@ class FirebaseNotificationService{
     messaging = FirebaseMessaging.instance;
     messaging.setForegroundNotificationPresentationOptions(
       alert: true,
+      badge: true,
       sound: true,
-      badge: true
     );
 
     settingNotification();
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-      Grock.snackBar(title: '${event.notification?.title}',
-          description: '${event.notification?.body}',
-      trailing: event.notification?.android?.imageUrl == null ? null : Image.network('${event.notification?.android?.imageUrl}',width: 60, height: 60),
+      if (event.notification != null) {
+        final notification = event.notification!;
+        Grock.snackBar(
+          title: notification.title ?? '',
+          description: notification.body ?? '',
+          trailing: notification.android?.imageUrl == null
+              ? null
+              : Image.network(
+            notification.android!.imageUrl!,
+            width: 60,
+            height: 60,
+          ),
           opacity: 0.5,
-        position: SnackbarPosition.top,
-      );
+          position: SnackbarPosition.top,
+        );
+      }
     });
-
     messaging.getToken().then((value) => log("Token: $value", name: "FCM Token"));
   }
 
   static Future<void> backgroundMessage(RemoteMessage message) async {
     await Firebase.initializeApp();
     if (kDebugMode) {
-      print("Hadnling a background message: ${message.messageId}");
+      print("Handling a background message: ${message.messageId}");
     }
   }
 }
-
